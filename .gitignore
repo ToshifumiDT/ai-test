@@ -1,0 +1,36 @@
+# Drupal core and Composer-managed dependencies.
+/vendor/
+/web/core/
+/web/libraries/
+/web/modules/contrib/
+/web/profiles/contrib/
+/web/themes/contrib/
+/drush/Commands/contrib/
+
+# Site-specific configuration and secrets.
+/web/sites/*/settings*.php
+!/web/sites/*/settings.php
+/web/sites/*/services*.yml
+!/web/sites/*/services.yml
+
+# User-generated files.
+/web/sites/*/files/**
+!/web/sites/*/files/.htaccess
+!/web/sites/*/files/.gitignore
+/web/sites/*/private/
+/web/sites/simpletest/
+
+# Local development artifacts.
+/auth.json
+/.phpunit.cache/
+/.phpunit.result.cache
+/.phpstan/
+/.phpstan.cache
+**/node_modules/
+
+# Editor and OS files.
+/.idea/
+/.vscode/
+.DS_Store
+Thumbs.db
+.codex
