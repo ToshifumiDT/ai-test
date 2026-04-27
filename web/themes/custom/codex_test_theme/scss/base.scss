@@ -175,6 +175,7 @@ input[type="reset"] {
   cursor: pointer;
 }
 
+/* Global keyboard focus stays visible; tighter component focus is handled locally. */
 :focus-visible {
   outline: 3px solid var(--color-cobalt);
   outline-offset: 3px;

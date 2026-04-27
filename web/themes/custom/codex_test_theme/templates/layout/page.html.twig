@@ -7,6 +7,7 @@
 <div class="page-wrapper">
   <header class="site-header" role="banner" data-codex-reveal>
     <div class="site-header__inner layout-container">
+      {# The header region is reserved for branding; navigation regions stay separate below. #}
       <div class="site-header__brand">
         {% if page.header %}
           {{ page.header }}
@@ -29,9 +30,22 @@
           <span class="site-menu-toggle__text">{{ 'Menu'|t }}</span>
         </button>
 
+        {#
+          Keep Drupal-rendered menu/search/account blocks in their regions, but wrap
+          the regions so desktop can align primary navigation left and utilities right.
+        #}
         <div id="site-navigation" class="site-navigation">
-          {{ page.primary_menu }}
-          {{ page.secondary_menu }}
+          {% if page.primary_menu %}
+            <div class="site-navigation__primary">
+              {{ page.primary_menu }}
+            </div>
+          {% endif %}
+
+          {% if page.secondary_menu %}
+            <div class="site-navigation__secondary">
+              {{ page.secondary_menu }}
+            </div>
+          {% endif %}
         </div>
       {% endif %}
     </div>
@@ -46,9 +60,15 @@
   {% endif %}
 
   <main id="main-content" class="main-content" role="main" tabindex="-1">
+    {# Page title is relocated from the header region in preprocess for a stronger editorial lead. #}
     {% if codex_header_page_title %}
       <div class="page-title-region layout-container" data-codex-reveal>
         {{ codex_header_page_title }}
+      </div>
+    {% elseif is_front %}
+      <div class="front-intro layout-container" data-codex-reveal>
+        <p class="front-intro__kicker">{{ 'Editorial index'|t }}</p>
+        <h1 class="front-intro__title">{{ 'Latest dispatches'|t }}</h1>
       </div>
     {% endif %}
 

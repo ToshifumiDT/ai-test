@@ -27,6 +27,12 @@ function codex_test_theme_preprocess_page(array &$variables): void {
   $variables['codex_site_slogan'] = $site_slogan;
   $variables['codex_site_initials'] = codex_test_theme_initials($site_name);
   $variables['codex_header_page_title'] = codex_test_theme_take_block_from_region($variables['page']['header'], 'page_title_block');
+
+  if (\Drupal::service('path.matcher')->isFrontPage()) {
+    $variables['codex_header_page_title'] = NULL;
+  }
+
+  $variables['#cache']['contexts'][] = 'url.path.is_front';
   $variables['#cache']['tags'] = Cache::mergeTags($variables['#cache']['tags'] ?? [], ['config:system.site']);
 }
 
@@ -56,6 +62,17 @@ function codex_test_theme_preprocess_node(array &$variables): void {
     if ($word_count > 0) {
       $minutes = max(1, (int) ceil($word_count / 220));
       $variables['codex_theme_read_time'] = new TranslatableMarkup('@minutes min read', ['@minutes' => $minutes]);
+    }
+  }
+}
+
+/**
+ * Implements hook_preprocess_HOOK() for field.html.twig.
+ */
+function codex_test_theme_preprocess_field(array &$variables): void {
+  foreach ($variables['items'] as &$item) {
+    if (isset($item['content']) && is_array($item['content'])) {
+      codex_test_theme_normalize_link_titles($item['content']);
     }
   }
 }
@@ -108,4 +125,19 @@ function codex_test_theme_take_block_from_region(array &$region, string $plugin_
   }
 
   return NULL;
+}
+
+/**
+ * Ensures Drupal link render arrays always have a printable title.
+ */
+function codex_test_theme_normalize_link_titles(array &$element): void {
+  if (($element['#type'] ?? NULL) === 'link' && array_key_exists('#title', $element) && $element['#title'] === NULL) {
+    $element['#title'] = new TranslatableMarkup('Untitled');
+  }
+
+  foreach ($element as &$child) {
+    if (is_array($child)) {
+      codex_test_theme_normalize_link_titles($child);
+    }
+  }
 }

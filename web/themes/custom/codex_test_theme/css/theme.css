@@ -63,6 +63,9 @@
 .path-frontpage .main-content {
   padding-block-start: clamp(2rem, 7vw, 5rem);
 }
+.path-frontpage .page-title-region:has(h1:empty) {
+  display: none;
+}
 .path-frontpage .block-page-title-block h1 {
   max-width: 9.5ch;
 }
@@ -132,7 +135,77 @@
   background: var(--color-coral);
   box-shadow: 0.48rem 0 0 var(--color-acid), 0.96rem 0 0 var(--color-cobalt);
 }
+.path-frontpage .layout-content__main > .block-system-main-block:has(.views-row) {
+  width: 100%;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  box-shadow: none;
+  overflow: visible;
+}
+.path-frontpage .layout-content__main > .block-system-main-block:has(.views-row)::before, .path-frontpage .layout-content__main > .block-system-main-block:has(.views-row)::after {
+  display: none;
+}
+.path-frontpage .layout-content__main > .block-system-main-block:has(.views-row) .block__content {
+  max-width: none;
+  font-size: 1rem;
+  line-height: inherit;
+}
+.path-frontpage .layout-content__main > .block-system-main-block:has(.views-row) .views-element-container > div {
+  display: grid;
+  gap: var(--space-5);
+}
+.path-frontpage .layout-content__main > .block-system-main-block:has(.views-row) .views-row:first-of-type .node--view-mode-teaser {
+  position: relative;
+  min-height: clamp(28rem, 46vw, 38rem);
+  padding: clamp(1.5rem, 4vw, 3rem);
+  background: linear-gradient(115deg, rgba(255, 254, 250, 0.94) 0 56%, rgba(213, 255, 47, 0.72) 56%), var(--color-paper-elevated);
+}
+.path-frontpage .layout-content__main > .block-system-main-block:has(.views-row) .views-row:first-of-type .node--view-mode-teaser .node__title {
+  max-width: 12ch;
+  font-size: clamp(2.8rem, 9vw, 7rem);
+}
+.path-frontpage .layout-content__main > .block-system-main-block:has(.views-row) .views-row:first-of-type .node--view-mode-teaser .field--type-image {
+  margin: calc(var(--space-4) * -1) calc(var(--space-4) * -1) var(--space-3);
+}
 
+@media (min-width: 700px) {
+  .path-frontpage .layout-content__main > .block-system-main-block:has(.views-row) .views-element-container > div {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    align-items: stretch;
+  }
+  .path-frontpage .layout-content__main > .block-system-main-block:has(.views-row) .views-row:first-of-type {
+    grid-column: 1/-1;
+  }
+  .path-frontpage .layout-content__main > .block-system-main-block:has(.views-row) .views-row:first-of-type .node--view-mode-teaser:has(.field--type-image) {
+    grid-template-columns: minmax(0, 1fr) minmax(16rem, 34vw);
+    align-items: end;
+  }
+  .path-frontpage .layout-content__main > .block-system-main-block:has(.views-row) .views-row:first-of-type .node--view-mode-teaser:has(.field--type-image) .node__header,
+  .path-frontpage .layout-content__main > .block-system-main-block:has(.views-row) .views-row:first-of-type .node--view-mode-teaser:has(.field--type-image) .links.inline,
+  .path-frontpage .layout-content__main > .block-system-main-block:has(.views-row) .views-row:first-of-type .node--view-mode-teaser:has(.field--type-image) .field--name-body,
+  .path-frontpage .layout-content__main > .block-system-main-block:has(.views-row) .views-row:first-of-type .node--view-mode-teaser:has(.field--type-image) .field--name-field-tags {
+    grid-column: 1;
+  }
+  .path-frontpage .layout-content__main > .block-system-main-block:has(.views-row) .views-row:first-of-type .node--view-mode-teaser:has(.field--type-image) .field--type-image {
+    grid-column: 2;
+    grid-row: 1/span 4;
+    align-self: stretch;
+    margin: 0;
+  }
+  .path-frontpage .layout-content__main > .block-system-main-block:has(.views-row) .views-row:first-of-type .node--view-mode-teaser:has(.field--type-image) .field--type-image img {
+    height: 100%;
+    max-height: none;
+  }
+}
+@media (min-width: 1024px) {
+  .path-frontpage .layout-content__main > .block-system-main-block:has(.views-row) .views-element-container > div {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+  .path-frontpage .layout-content__main > .block-system-main-block:has(.views-row) .views-row:first-of-type {
+    grid-column: span 3;
+  }
+}
 .layout-content__sidebar {
   position: relative;
 }

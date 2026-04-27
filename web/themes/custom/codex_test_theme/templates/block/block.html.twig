@@ -14,6 +14,7 @@
   ]
 %}
 {% set block_tag = codex_theme_block_tag|default('section') %}
+{# Menu blocks become <nav> in preprocess; other blocks keep a neutral section wrapper. #}
 <{{ block_tag }}{{ attributes.addClass(classes) }}>
   {{ title_prefix }}
   {% if label %}
@@ -22,6 +23,7 @@
   {{ title_suffix }}
 
   {% block content %}
+    {# Preserve Drupal's rendered block content and contextual links. #}
     <div class="block__content">
       {{ content }}
     </div>
