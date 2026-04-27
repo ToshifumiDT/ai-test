@@ -1,0 +1,3 @@
+services:
+  Drupal\spacing_debugger\Hook\SpacingDebuggerHooks:
+    arguments: ['@current_user']

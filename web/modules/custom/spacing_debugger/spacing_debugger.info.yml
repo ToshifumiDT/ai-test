@@ -1,0 +1,5 @@
+name: 'Spacing Debugger'
+type: module
+description: 'Provides a development-only CSS spacing overlay: orange = margin, green = padding, blue = border, light blue = content, purple = flex/grid gap.'
+package: Development
+core_version_requirement: ^10.3 || ^11

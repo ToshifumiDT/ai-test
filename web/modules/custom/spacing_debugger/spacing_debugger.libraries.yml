@@ -1,0 +1,9 @@
+debugger:
+  version: 1.x
+  css:
+    theme:
+      css/spacing-debugger.css: {}
+  js:
+    js/spacing-debugger.js: {}
+  dependencies:
+    - core/drupal

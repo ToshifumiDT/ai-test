@@ -1,0 +1,4 @@
+use spacing debugger:
+  title: 'Use spacing debugger'
+  description: 'View CSS spacing overlays on site pages.'
+  restrict access: true
