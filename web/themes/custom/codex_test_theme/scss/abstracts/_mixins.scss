@@ -34,6 +34,28 @@
   box-shadow: 0.45rem 0.45rem 0 rgb(17 19 15 / 9%);
 }
 
+@mixin proof-surface($padding: var(--space-5)) {
+  position: relative;
+  padding: $padding;
+  border: 2px solid var(--color-line-strong);
+  background:
+    linear-gradient(135deg, rgb(255 255 255 / 72%), rgb(255 255 255 / 16%)),
+    linear-gradient(90deg, rgb(22 75 255 / 7%) 1px, transparent 1px) 0 0 / 2.75rem 2.75rem,
+    var(--color-paper-elevated);
+  box-shadow:
+    0.7rem 0.7rem 0 var(--color-acid-soft),
+    1.15rem 1.15rem 0 rgb(17 19 15 / 10%);
+}
+
+@mixin offset-rule($color: var(--color-coral)) {
+  content: "";
+  display: block;
+  width: clamp(5rem, 20vw, 14rem);
+  height: 0.45rem;
+  background: var(--color-acid);
+  box-shadow: 1.2rem 0.55rem 0 $color;
+}
+
 @mixin pill-button($background: var(--color-ink), $color: var(--color-paper)) {
   display: inline-flex;
   align-items: center;

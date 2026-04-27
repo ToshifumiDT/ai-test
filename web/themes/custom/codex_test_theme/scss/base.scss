@@ -41,6 +41,22 @@ body {
       radial-gradient(circle at 86% 26%, rgb(255 90 54 / 16%) 0 0.32rem, transparent 0.38rem);
     opacity: 0.72;
   }
+
+  &::after {
+    position: fixed;
+    z-index: 0;
+    right: 0;
+    bottom: 0;
+    width: min(34rem, 58vw);
+    height: min(20rem, 36vh);
+    content: "";
+    pointer-events: none;
+    background:
+      radial-gradient(circle, rgb(17 19 15 / 16%) 0 1px, transparent 1.5px) 0 0 / 0.8rem 0.8rem,
+      linear-gradient(135deg, transparent 0 44%, rgb(255 90 54 / 16%) 44% 56%, transparent 56%);
+    opacity: 0.55;
+    mask-image: linear-gradient(135deg, transparent 0 18%, #000 48%);
+  }
 }
 
 img,
@@ -93,10 +109,12 @@ h6 {
 h1 {
   max-width: 11ch;
   font-size: clamp(3rem, 14vw, 8.6rem);
+  text-wrap: balance;
 }
 
 h2 {
   font-size: clamp(2rem, 6vw, 4.7rem);
+  text-wrap: balance;
 }
 
 h3 {

@@ -12,6 +12,15 @@
   max-width: 100%;
   color: var(--color-ink);
   text-decoration: none;
+
+  &:hover {
+    color: var(--color-ink);
+
+    .site-mark__glyph {
+      transform: translate(-0.12rem, -0.12rem) rotate(-2deg);
+      box-shadow: 0.45rem 0.45rem 0 var(--color-coral);
+    }
+  }
 }
 
 .site-mark__glyph {
@@ -27,6 +36,9 @@
   font-weight: 900;
   letter-spacing: 0.06em;
   box-shadow: 0.25rem 0.25rem 0 var(--color-acid);
+  transition:
+    box-shadow var(--duration) ease,
+    transform var(--duration) ease;
 
   img {
     width: 100%;
@@ -65,6 +77,10 @@
 }
 
 .site-navigation {
+  #block-codex-test-theme-search-form-wide {
+    display: none;
+  }
+
   ul,
   .menu {
     display: flex;
@@ -110,19 +126,26 @@
     gap: 0.4rem;
     align-items: center;
     margin: 0;
+    padding: 0.25rem;
+    border: 1px solid var(--color-line-strong);
+    border-radius: var(--radius-round);
+    background: rgb(255 254 250 / 62%);
   }
 
   input[type="search"] {
-    width: min(13rem, 52vw);
+    width: min(15rem, 58vw);
     min-height: 2.35rem;
     padding-block: 0.45rem;
+    border: 0;
     border-radius: var(--radius-round);
-    background: rgb(255 254 250 / 78%);
+    background: transparent;
+    box-shadow: none;
   }
 
   input[type="submit"] {
     min-height: 2.35rem;
     padding: 0.55rem 0.75rem;
+    border-width: 1px;
     box-shadow: none;
   }
 }
@@ -142,6 +165,12 @@
 .layout-content__sidebar .block,
 .content-bottom .block {
   @include editorial-panel;
+}
+
+.block-system-powered-by-block {
+  margin-block-end: 0;
+  color: rgb(251 251 244 / 76%);
+  @include ui-label(0.76rem);
 }
 
 .breadcrumb {
@@ -427,6 +456,16 @@ textarea {
 }
 
 @include media(tablet) {
+  .site-navigation {
+    #block-codex-test-theme-search-form-narrow {
+      display: none;
+    }
+
+    #block-codex-test-theme-search-form-wide {
+      display: block;
+    }
+  }
+
   .node__header {
     display: grid;
     grid-template-columns: minmax(0, 1fr) minmax(11rem, 18vw);
