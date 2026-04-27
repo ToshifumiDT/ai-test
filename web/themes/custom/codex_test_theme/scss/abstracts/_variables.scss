@@ -1,0 +1,76 @@
+@use "sass:map";
+
+$colors: (
+  ink: #11130f,
+  ink-soft: #34382e,
+  paper: #fbfbf4,
+  paper-elevated: #fffefa,
+  line: #d8ded0,
+  line-strong: #161911,
+  cobalt: #164bff,
+  cobalt-deep: #062ca8,
+  acid: #d5ff2f,
+  coral: #ff5a36,
+  mint: #dff6ec,
+  white: #fff
+);
+
+$fonts: (
+  display: ("Bodoni 72", Didot, "Baskerville", "Libre Baskerville", Georgia, serif),
+  body: ("Source Serif 4", Charter, "Iowan Old Style", "Sitka Text", Georgia, serif),
+  ui: ("IBM Plex Sans Condensed", "Aptos Narrow", "Franklin Gothic Medium", "Liberation Sans Narrow", sans-serif)
+);
+
+$breakpoints: (
+  tablet: 700px,
+  desktop: 1024px,
+  wide: 1320px
+);
+
+$spaces: (
+  1: 0.35rem,
+  2: 0.65rem,
+  3: 1rem,
+  4: 1.5rem,
+  5: 2rem,
+  6: 3rem,
+  7: 4.5rem
+);
+
+@function color($name) {
+  @return map.get($colors, $name);
+}
+
+@function font($name) {
+  @return map.get($fonts, $name);
+}
+
+@function space($step) {
+  @return map.get($spaces, $step);
+}
+
+@function breakpoint($name) {
+  @return map.get($breakpoints, $name);
+}
+
+@mixin custom-properties {
+  @each $name, $value in $colors {
+    --color-#{"" + $name}: #{$value};
+  }
+
+  --color-shadow: rgb(17 19 15 / 18%);
+  --font-display: #{font(display)};
+  --font-body: #{font(body)};
+  --font-ui: #{font(ui)};
+  --container: 1180px;
+  --content: 760px;
+  --gutter: clamp(1rem, 3vw, 2.5rem);
+
+  @each $step, $value in $spaces {
+    --space-#{$step}: #{$value};
+  }
+
+  --radius-small: 6px;
+  --radius-round: 999px;
+  --duration: 180ms;
+}

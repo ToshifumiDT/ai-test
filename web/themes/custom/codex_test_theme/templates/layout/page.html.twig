@@ -1,0 +1,103 @@
+{#
+/**
+ * @file
+ * Theme override to display a single Drupal page.
+ */
+#}
+<div class="page-wrapper">
+  <header class="site-header" role="banner" data-codex-reveal>
+    <div class="site-header__inner layout-container">
+      <div class="site-header__brand">
+        {% if page.header %}
+          {{ page.header }}
+        {% else %}
+          <a class="site-mark" href="{{ front_page }}" rel="home">
+            <span class="site-mark__glyph" aria-hidden="true">{{ codex_site_initials }}</span>
+            <span class="site-mark__text">
+              <span class="site-mark__name">{{ codex_site_name }}</span>
+              {% if codex_site_slogan %}
+                <span class="site-mark__slogan">{{ codex_site_slogan }}</span>
+              {% endif %}
+            </span>
+          </a>
+        {% endif %}
+      </div>
+
+      {% if page.primary_menu or page.secondary_menu %}
+        <button class="site-menu-toggle" type="button" aria-controls="site-navigation" aria-expanded="false">
+          <span class="site-menu-toggle__bars" aria-hidden="true"></span>
+          <span class="site-menu-toggle__text">{{ 'Menu'|t }}</span>
+        </button>
+
+        <div id="site-navigation" class="site-navigation">
+          {{ page.primary_menu }}
+          {{ page.secondary_menu }}
+        </div>
+      {% endif %}
+    </div>
+  </header>
+
+  {% if page.hero %}
+    <section class="hero-band" aria-label="{{ 'Featured content'|t }}" data-codex-reveal>
+      <div class="layout-container hero-band__inner">
+        {{ page.hero }}
+      </div>
+    </section>
+  {% endif %}
+
+  <main id="main-content" class="main-content" role="main" tabindex="-1">
+    {% if codex_header_page_title %}
+      <div class="page-title-region layout-container" data-codex-reveal>
+        {{ codex_header_page_title }}
+      </div>
+    {% endif %}
+
+    {% if page.highlighted %}
+      <div class="highlighted-region layout-container" data-codex-reveal>
+        {{ page.highlighted }}
+      </div>
+    {% endif %}
+
+    {% if page.breadcrumb %}
+      <div class="breadcrumb-region layout-container">
+        {{ page.breadcrumb }}
+      </div>
+    {% endif %}
+
+    <div class="layout-content layout-container{{ page.sidebar ? ' layout-content--with-sidebar' }}" data-codex-reveal>
+      <div class="layout-content__main">
+        {{ page.content }}
+      </div>
+
+      {% if page.sidebar %}
+        <aside class="layout-content__sidebar" role="complementary">
+          {{ page.sidebar }}
+        </aside>
+      {% endif %}
+    </div>
+
+    {% if page.content_bottom %}
+      <div class="content-bottom layout-container" data-codex-reveal>
+        {{ page.content_bottom }}
+      </div>
+    {% endif %}
+  </main>
+
+  {% if page.footer_top or page.footer_bottom %}
+    <footer class="site-footer" role="contentinfo" data-codex-reveal>
+      <div class="site-footer__inner layout-container">
+        {% if page.footer_top %}
+          <div class="site-footer__top">
+            {{ page.footer_top }}
+          </div>
+        {% endif %}
+
+        {% if page.footer_bottom %}
+          <div class="site-footer__bottom">
+            {{ page.footer_bottom }}
+          </div>
+        {% endif %}
+      </div>
+    </footer>
+  {% endif %}
+</div>

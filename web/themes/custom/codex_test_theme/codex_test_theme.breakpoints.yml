@@ -1,0 +1,31 @@
+codex_test_theme.mobile:
+  label: Mobile
+  mediaQuery: 'screen and (min-width: 0px)'
+  weight: 0
+  multipliers:
+    - 1x
+    - 2x
+
+codex_test_theme.tablet:
+  label: Tablet
+  mediaQuery: 'screen and (min-width: 700px)'
+  weight: 1
+  multipliers:
+    - 1x
+    - 2x
+
+codex_test_theme.desktop:
+  label: Desktop
+  mediaQuery: 'screen and (min-width: 1024px)'
+  weight: 2
+  multipliers:
+    - 1x
+    - 2x
+
+codex_test_theme.wide:
+  label: Wide
+  mediaQuery: 'screen and (min-width: 1320px)'
+  weight: 3
+  multipliers:
+    - 1x
+    - 2x

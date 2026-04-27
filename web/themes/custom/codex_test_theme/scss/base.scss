@@ -1,0 +1,197 @@
+@use "abstracts/variables" as *;
+
+:root {
+  @include custom-properties;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  min-height: 100%;
+  color: var(--color-ink);
+  background: var(--color-paper);
+  font-family: var(--font-body);
+  line-height: 1.6;
+  text-size-adjust: 100%;
+}
+
+body {
+  min-height: 100vh;
+  margin: 0;
+  color: var(--color-ink);
+  background:
+    linear-gradient(90deg, rgb(17 19 15 / 5%) 1px, transparent 1px) 0 0 / 4.5rem 4.5rem,
+    linear-gradient(180deg, rgb(17 19 15 / 4%) 1px, transparent 1px) 0 0 / 4.5rem 4.5rem,
+    var(--color-paper);
+  font-size: clamp(1rem, 0.94rem + 0.18vw, 1.125rem);
+
+  &::before {
+    position: fixed;
+    z-index: 0;
+    inset: 0;
+    content: "";
+    pointer-events: none;
+    background:
+      repeating-linear-gradient(135deg, rgb(22 75 255 / 6%) 0 1px, transparent 1px 12px),
+      radial-gradient(circle at 12% 8%, rgb(213 255 47 / 28%) 0 0.4rem, transparent 0.45rem),
+      radial-gradient(circle at 86% 26%, rgb(255 90 54 / 16%) 0 0.32rem, transparent 0.38rem);
+    opacity: 0.72;
+  }
+}
+
+img,
+svg,
+video {
+  max-width: 100%;
+  height: auto;
+}
+
+img {
+  display: block;
+}
+
+a {
+  color: var(--color-cobalt-deep);
+  text-decoration-thickness: 0.08em;
+  text-underline-offset: 0.18em;
+  transition:
+    color var(--duration) ease,
+    text-decoration-color var(--duration) ease,
+    background-color var(--duration) ease;
+
+  &:hover {
+    color: var(--color-coral);
+  }
+}
+
+p,
+ul,
+ol,
+dl,
+figure,
+blockquote {
+  margin-block: 0 1.25rem;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin-block: 0 0.75em;
+  font-family: var(--font-display);
+  font-weight: 700;
+  line-height: 0.98;
+  letter-spacing: 0;
+}
+
+h1 {
+  max-width: 11ch;
+  font-size: clamp(3rem, 14vw, 8.6rem);
+}
+
+h2 {
+  font-size: clamp(2rem, 6vw, 4.7rem);
+}
+
+h3 {
+  font-size: clamp(1.5rem, 3vw, 2.4rem);
+}
+
+blockquote {
+  margin-inline: 0;
+  padding: var(--space-4);
+  border-inline-start: 0.4rem solid var(--color-acid);
+  background: rgb(255 254 250 / 72%);
+  box-shadow: 0 1rem 2rem rgb(17 19 15 / 7%);
+  font-size: clamp(1.2rem, 2.5vw, 1.7rem);
+  line-height: 1.35;
+}
+
+hr {
+  height: 0;
+  margin-block: var(--space-6);
+  border: 0;
+  border-top: 2px solid var(--color-line-strong);
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background: var(--color-paper-elevated);
+}
+
+th,
+td {
+  padding: 0.85rem;
+  border: 1px solid var(--color-line);
+  text-align: start;
+  vertical-align: top;
+}
+
+th {
+  background: var(--color-ink);
+  color: var(--color-paper);
+  font-family: var(--font-ui);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+input,
+button,
+textarea,
+select {
+  max-width: 100%;
+  font: inherit;
+}
+
+button,
+input[type="submit"],
+input[type="button"],
+input[type="reset"] {
+  cursor: pointer;
+}
+
+:focus-visible {
+  outline: 3px solid var(--color-cobalt);
+  outline-offset: 3px;
+}
+
+.visually-hidden {
+  position: absolute !important;
+  overflow: hidden;
+  clip: rect(1px, 1px, 1px, 1px);
+  width: 1px;
+  height: 1px;
+  word-wrap: normal;
+}
+
+.visually-hidden.focusable:active,
+.visually-hidden.focusable:focus {
+  position: fixed !important;
+  z-index: 1000;
+  top: 1rem;
+  left: 1rem;
+  clip: auto;
+  width: auto;
+  height: auto;
+  padding: 0.75rem 1rem;
+  border: 2px solid var(--color-ink);
+  border-radius: var(--radius-small);
+  background: var(--color-acid);
+  color: var(--color-ink);
+  font-family: var(--font-ui);
+  font-weight: 700;
+  text-decoration: none;
+  text-transform: uppercase;
+}
+
+::selection {
+  background: var(--color-acid);
+  color: var(--color-ink);
+}

@@ -1,0 +1,111 @@
+<?php
+
+/**
+ * @file
+ * Theme hooks and preprocessors for Codex Test Theme.
+ */
+
+use Drupal\Core\Cache\Cache;
+use Drupal\Core\StringTranslation\TranslatableMarkup;
+
+/**
+ * Implements hook_preprocess_HOOK() for html.html.twig.
+ */
+function codex_test_theme_preprocess_html(array &$variables): void {
+  $variables['attributes']['class'][] = 'codex-test-theme';
+}
+
+/**
+ * Implements hook_preprocess_HOOK() for page.html.twig.
+ */
+function codex_test_theme_preprocess_page(array &$variables): void {
+  $site_config = \Drupal::config('system.site');
+  $site_name = (string) ($site_config->get('name') ?: 'Codex');
+  $site_slogan = (string) ($site_config->get('slogan') ?: '');
+
+  $variables['codex_site_name'] = $site_name;
+  $variables['codex_site_slogan'] = $site_slogan;
+  $variables['codex_site_initials'] = codex_test_theme_initials($site_name);
+  $variables['codex_header_page_title'] = codex_test_theme_take_block_from_region($variables['page']['header'], 'page_title_block');
+  $variables['#cache']['tags'] = Cache::mergeTags($variables['#cache']['tags'] ?? [], ['config:system.site']);
+}
+
+/**
+ * Implements hook_preprocess_HOOK() for node.html.twig.
+ */
+function codex_test_theme_preprocess_node(array &$variables): void {
+  if (empty($variables['node'])) {
+    return;
+  }
+
+  /** @var \Drupal\node\NodeInterface $node */
+  $node = $variables['node'];
+  $variables['codex_theme_bundle_label'] = $node->bundle();
+  $variables['codex_theme_read_time'] = NULL;
+
+  $node_type = \Drupal::entityTypeManager()->getStorage('node_type')->load($node->bundle());
+  if ($node_type) {
+    $variables['codex_theme_bundle_label'] = $node_type->label();
+    $variables['#cache']['tags'] = Cache::mergeTags($variables['#cache']['tags'] ?? [], $node_type->getCacheTags());
+  }
+
+  if ($node->hasField('body') && !$node->get('body')->isEmpty()) {
+    $plain_text = trim(strip_tags((string) $node->get('body')->value));
+    $word_count = str_word_count($plain_text);
+
+    if ($word_count > 0) {
+      $minutes = max(1, (int) ceil($word_count / 220));
+      $variables['codex_theme_read_time'] = new TranslatableMarkup('@minutes min read', ['@minutes' => $minutes]);
+    }
+  }
+}
+
+/**
+ * Implements hook_preprocess_HOOK() for block.html.twig.
+ */
+function codex_test_theme_preprocess_block(array &$variables): void {
+  $plugin_id = (string) ($variables['plugin_id'] ?? '');
+  $is_menu_block = str_starts_with($plugin_id, 'system_menu_block:');
+
+  $variables['codex_theme_block_tag'] = $is_menu_block ? 'nav' : 'section';
+  $variables['codex_site_initials'] = codex_test_theme_initials((string) (\Drupal::config('system.site')->get('name') ?: 'Codex'));
+
+  if ($is_menu_block) {
+    $label = $variables['configuration']['label'] ?? 'Navigation';
+    $variables['attributes']['aria-label'] = $label;
+  }
+}
+
+/**
+ * Builds compact initials for the fallback site mark.
+ */
+function codex_test_theme_initials(string $name): string {
+  $words = preg_split('/\s+/', trim($name)) ?: [];
+  $letters = [];
+
+  foreach ($words as $word) {
+    if ($word !== '') {
+      $letters[] = mb_substr($word, 0, 1);
+    }
+  }
+
+  return mb_strtoupper(implode('', array_slice($letters, 0, 2))) ?: 'C';
+}
+
+/**
+ * Removes a block from a region render array and returns it for relocation.
+ */
+function codex_test_theme_take_block_from_region(array &$region, string $plugin_id): ?array {
+  foreach ($region as $key => $build) {
+    if (!is_string($key) || str_starts_with($key, '#') || !is_array($build)) {
+      continue;
+    }
+
+    if (($build['#plugin_id'] ?? NULL) === $plugin_id) {
+      unset($region[$key]);
+      return $build;
+    }
+  }
+
+  return NULL;
+}

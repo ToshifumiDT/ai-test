@@ -1,0 +1,30 @@
+{% extends "block.html.twig" %}
+{#
+/**
+ * @file
+ * Theme override for the site branding block.
+ */
+#}
+{% set attributes = attributes.addClass('site-branding') %}
+{% block content %}
+  <a class="site-mark" href="{{ path('<front>') }}" rel="home">
+    {% if site_logo %}
+      <span class="site-mark__glyph site-mark__glyph--logo" aria-hidden="true">
+        <img src="{{ site_logo }}" alt="" fetchpriority="high" />
+      </span>
+    {% else %}
+      <span class="site-mark__glyph" aria-hidden="true">{{ codex_site_initials|default('C') }}</span>
+    {% endif %}
+
+    {% if site_name or site_slogan %}
+      <span class="site-mark__text">
+        {% if site_name %}
+          <span class="site-mark__name">{{ site_name }}</span>
+        {% endif %}
+        {% if site_slogan %}
+          <span class="site-mark__slogan">{{ site_slogan }}</span>
+        {% endif %}
+      </span>
+    {% endif %}
+  </a>
+{% endblock %}

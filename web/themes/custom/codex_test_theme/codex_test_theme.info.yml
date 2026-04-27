@@ -1,0 +1,23 @@
+name: 'Codex Test Theme'
+type: theme
+description: 'A modern editorial Drupal theme built to demonstrate responsive custom theming.'
+package: Custom
+core_version_requirement: ^10.3 || ^11
+'base theme': stable9
+
+libraries:
+  - core/normalize
+  - codex_test_theme/global
+
+regions:
+  header: Header
+  primary_menu: 'Primary menu'
+  secondary_menu: 'Secondary menu'
+  hero: Hero
+  highlighted: Highlighted
+  breadcrumb: Breadcrumb
+  content: Content
+  sidebar: Sidebar
+  content_bottom: 'Content bottom'
+  footer_top: 'Footer top'
+  footer_bottom: 'Footer bottom'

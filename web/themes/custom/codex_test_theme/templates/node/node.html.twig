@@ -1,0 +1,58 @@
+{#
+/**
+ * @file
+ * Theme override to display a node.
+ */
+#}
+{%
+  set classes = [
+    'node',
+    'node--type-' ~ node.bundle|clean_class,
+    node.isPromoted() ? 'node--promoted',
+    node.isSticky() ? 'node--sticky',
+    not node.isPublished() ? 'node--unpublished',
+    view_mode ? 'node--view-mode-' ~ view_mode|clean_class,
+  ]
+%}
+<article{{ attributes.addClass(classes).setAttribute('data-codex-reveal', '') }}>
+  <header class="node__header">
+    <div class="node__eyebrow">
+      <span class="node__content-type">{{ codex_theme_bundle_label }}</span>
+      {% if display_submitted %}
+        <span class="node__date">{{ date }}</span>
+      {% endif %}
+      {% if codex_theme_read_time %}
+        <span class="node__read-time">{{ codex_theme_read_time }}</span>
+      {% endif %}
+    </div>
+
+    {{ title_prefix }}
+    {% if label and not page %}
+      <h2{{ title_attributes.addClass('node__title') }}>
+        <a href="{{ url }}" rel="bookmark">{{ label }}</a>
+      </h2>
+    {% endif %}
+    {{ title_suffix }}
+
+    {% if display_submitted and author_name %}
+      <div class="node__meta">
+        {% if author_picture %}
+          <span class="node__author-image">{{ author_picture }}</span>
+        {% endif %}
+        <span{{ author_attributes.addClass('node__author') }}>
+          {{ 'By @name'|t({'@name': author_name}) }}
+        </span>
+      </div>
+    {% endif %}
+  </header>
+
+  <div{{ content_attributes.addClass('node__content') }}>
+    {{ content|without('comment') }}
+  </div>
+
+  {% if content.comment %}
+    <div id="comments" class="node__comments">
+      {{ content.comment }}
+    </div>
+  {% endif %}
+</article>

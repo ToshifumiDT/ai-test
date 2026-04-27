@@ -1,0 +1,29 @@
+{#
+/**
+ * @file
+ * Theme override to display a block.
+ */
+#}
+{%
+  set classes = [
+    'block',
+    'block-' ~ configuration.provider|clean_class,
+    'block-' ~ plugin_id|clean_class,
+    'block--provider-' ~ configuration.provider|clean_class,
+    'block--plugin-' ~ plugin_id|clean_class,
+  ]
+%}
+{% set block_tag = codex_theme_block_tag|default('section') %}
+<{{ block_tag }}{{ attributes.addClass(classes) }}>
+  {{ title_prefix }}
+  {% if label %}
+    <h2{{ title_attributes.addClass('block__title') }}>{{ label }}</h2>
+  {% endif %}
+  {{ title_suffix }}
+
+  {% block content %}
+    <div class="block__content">
+      {{ content }}
+    </div>
+  {% endblock %}
+</{{ block_tag }}>

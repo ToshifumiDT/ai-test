@@ -1,0 +1,13 @@
+{
+  "name": "codex-test-theme",
+  "private": true,
+  "version": "1.0.0",
+  "description": "SCSS build tooling for the Codex Test Drupal theme.",
+  "scripts": {
+    "build:css": "sass --no-source-map scss/base.scss:css/base.css scss/layout.scss:css/layout.css scss/components.scss:css/components.css scss/theme.scss:css/theme.css",
+    "watch:css": "sass --watch --no-source-map scss:css"
+  },
+  "devDependencies": {
+    "sass": "^1.93.2"
+  }
+}
