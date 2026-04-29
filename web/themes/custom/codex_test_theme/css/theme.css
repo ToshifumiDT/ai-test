@@ -136,6 +136,8 @@
   box-shadow: 0.48rem 0 0 var(--color-acid), 0.96rem 0 0 var(--color-cobalt);
 }
 .path-frontpage .layout-content__main > .block-system-main-block:has(.views-row) {
+  --frontpage-row-gap: clamp(2.75rem, 6vw, 5rem);
+  --frontpage-column-gap: clamp(1.5rem, 3vw, 2.75rem);
   width: 100%;
   padding: 0;
   border: 0;
@@ -151,28 +153,58 @@
   font-size: 1rem;
   line-height: inherit;
 }
-.path-frontpage .layout-content__main > .block-system-main-block:has(.views-row) .views-element-container > div {
+.path-frontpage .layout-content__main > .block-system-main-block:has(.views-row) {
+  /*
+   * Front page content is a Drupal View of node teasers. Keep the Views markup
+   * untouched and create scan-friendly spacing from the wrapper classes.
+   */
+}
+.path-frontpage .layout-content__main > .block-system-main-block:has(.views-row) .views-element-container > div,
+.path-frontpage .layout-content__main > .block-system-main-block:has(.views-row) .views-element-container > div > .view-content {
   display: grid;
-  gap: var(--space-5);
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--frontpage-row-gap) var(--frontpage-column-gap);
+  align-items: stretch;
+}
+.path-frontpage .layout-content__main > .block-system-main-block:has(.views-row) .views-element-container > div > .view-content,
+.path-frontpage .layout-content__main > .block-system-main-block:has(.views-row) .views-element-container > div > .pager,
+.path-frontpage .layout-content__main > .block-system-main-block:has(.views-row) .views-element-container > div > .feed-icons,
+.path-frontpage .layout-content__main > .block-system-main-block:has(.views-row) .views-element-container > div > .more-link {
+  grid-column: 1/-1;
+}
+.path-frontpage .layout-content__main > .block-system-main-block:has(.views-row) .views-row {
+  min-width: 0;
 }
 .path-frontpage .layout-content__main > .block-system-main-block:has(.views-row) .views-row:first-of-type .node--view-mode-teaser {
+  --teaser-padding: clamp(1.75rem, 4vw, 3.25rem);
   position: relative;
+  min-height: clamp(20rem, 34vw, 30rem);
+  padding: var(--teaser-padding);
+  background: linear-gradient(115deg, rgba(255, 254, 250, 0.94) 0 54%, rgba(213, 255, 47, 0.7) 54%), var(--color-paper-elevated);
+  box-shadow: 0.85rem 0.85rem 0 var(--color-cobalt-wash), 1.35rem 1.35rem 0 rgba(17, 19, 15, 0.1);
+}
+.path-frontpage .layout-content__main > .block-system-main-block:has(.views-row) .views-row:first-of-type .node--view-mode-teaser:has(.field--type-image) {
   min-height: clamp(28rem, 46vw, 38rem);
-  padding: clamp(1.5rem, 4vw, 3rem);
-  background: linear-gradient(115deg, rgba(255, 254, 250, 0.94) 0 56%, rgba(213, 255, 47, 0.72) 56%), var(--color-paper-elevated);
 }
 .path-frontpage .layout-content__main > .block-system-main-block:has(.views-row) .views-row:first-of-type .node--view-mode-teaser .node__title {
   max-width: 12ch;
   font-size: clamp(2.8rem, 9vw, 7rem);
 }
+.path-frontpage .layout-content__main > .block-system-main-block:has(.views-row) .views-row:first-of-type .node--view-mode-teaser .field--name-body {
+  max-width: 52ch;
+}
+.path-frontpage .layout-content__main > .block-system-main-block:has(.views-row) .views-row:first-of-type .node--view-mode-teaser .field--name-body .field__item {
+  -webkit-line-clamp: 5;
+}
 .path-frontpage .layout-content__main > .block-system-main-block:has(.views-row) .views-row:first-of-type .node--view-mode-teaser .field--type-image {
-  margin: calc(var(--space-4) * -1) calc(var(--space-4) * -1) var(--space-3);
+  margin: calc(var(--teaser-padding) * -1) calc(var(--teaser-padding) * -1) var(--space-3);
 }
 
 @media (min-width: 700px) {
-  .path-frontpage .layout-content__main > .block-system-main-block:has(.views-row) .views-element-container > div {
+  .path-frontpage .layout-content__main > .block-system-main-block:has(.views-row) .views-element-container > div,
+  .path-frontpage .layout-content__main > .block-system-main-block:has(.views-row) .views-element-container > div > .view-content {
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    align-items: stretch;
+    gap: var(--frontpage-row-gap) var(--frontpage-column-gap);
   }
   .path-frontpage .layout-content__main > .block-system-main-block:has(.views-row) .views-row:first-of-type {
     grid-column: 1/-1;
@@ -199,7 +231,8 @@
   }
 }
 @media (min-width: 1024px) {
-  .path-frontpage .layout-content__main > .block-system-main-block:has(.views-row) .views-element-container > div {
+  .path-frontpage .layout-content__main > .block-system-main-block:has(.views-row) .views-element-container > div,
+  .path-frontpage .layout-content__main > .block-system-main-block:has(.views-row) .views-element-container > div > .view-content {
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
   .path-frontpage .layout-content__main > .block-system-main-block:has(.views-row) .views-row:first-of-type {

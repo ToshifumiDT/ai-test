@@ -31,8 +31,9 @@
         </button>
 
         {#
-          Keep Drupal-rendered menu/search/account blocks in their regions, but wrap
-          the regions so desktop can align primary navigation left and utilities right.
+          Keep Drupal-rendered menu/search/account blocks in their regions. CSS uses
+          these wrappers to place search and account actions at the right edge while
+          preserving future primary menu links.
         #}
         <div id="site-navigation" class="site-navigation">
           {% if page.primary_menu %}

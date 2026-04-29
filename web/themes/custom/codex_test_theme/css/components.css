@@ -69,7 +69,13 @@
   white-space: nowrap;
 }
 
-/* Header navigation keeps primary links grouped and utility blocks ordered predictably. */
+/* Header navigation keeps Drupal blocks intact while making the utility actions read as one bar. */
+.site-navigation {
+  --nav-control-height: 2.8rem;
+  --nav-control-padding: 0.62rem 0.9rem;
+  --nav-control-radius: var(--radius-small);
+  --nav-control-font-size: 0.86rem;
+}
 .site-navigation #block-codex-test-theme-search-form-wide {
   display: none;
 }
@@ -81,6 +87,18 @@
 }
 .site-navigation #block-codex-test-theme-account-menu {
   order: 3;
+}
+.site-navigation {
+  /*
+   * The logo/site name already links home. Hide only the redundant generated
+   * Home menu item, leaving any future main menu links visible and styled.
+   */
+}
+.site-navigation #block-codex-test-theme-main-menu li:has(> a[data-drupal-link-system-path="<front>"]) {
+  display: none;
+}
+.site-navigation #block-codex-test-theme-main-menu:has(li:only-child > a[data-drupal-link-system-path="<front>"]) {
+  display: none;
 }
 .site-navigation ul,
 .site-navigation .menu {
@@ -99,14 +117,15 @@
 .site-navigation a {
   display: inline-flex;
   align-items: center;
-  min-height: 2.25rem;
-  padding: 0.45rem 0.8rem;
-  border: 1px solid transparent;
-  border-radius: var(--radius-round);
+  justify-content: center;
+  min-height: var(--nav-control-height);
+  padding: var(--nav-control-padding);
+  border: 2px solid transparent;
+  border-radius: var(--nav-control-radius);
   color: var(--color-ink);
   font-family: var(--font-ui);
-  font-size: 0.88rem;
-  font-weight: 800;
+  font-size: var(--nav-control-font-size);
+  font-weight: 900;
   letter-spacing: 0.08em;
   line-height: 1;
   text-decoration: none;
@@ -123,7 +142,8 @@
 .site-navigation #block-codex-test-theme-account-menu a {
   border-color: var(--color-ink);
   background: var(--color-paper-elevated);
-  box-shadow: 0.16rem 0.16rem 0 var(--color-acid);
+  box-shadow: 0.18rem 0.18rem 0 var(--color-acid);
+  width: 100%;
 }
 .site-navigation #block-codex-test-theme-account-menu a:hover, .site-navigation #block-codex-test-theme-account-menu a.is-active {
   background: var(--color-coral);
@@ -138,7 +158,7 @@
 }
 .site-navigation .search-block-form form {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) auto;
+  grid-template-columns: minmax(0, 1fr);
   gap: 0.55rem;
   align-items: center;
   margin: 0;
@@ -149,11 +169,14 @@
 }
 .site-navigation input[type=search] {
   width: 100%;
-  min-height: 2.55rem;
-  padding: 0.55rem 0.8rem;
+  height: var(--nav-control-height);
+  min-height: var(--nav-control-height);
+  padding: var(--nav-control-padding);
   border: 2px solid var(--color-ink);
-  border-radius: var(--radius-small);
+  border-radius: var(--nav-control-radius);
   background: rgba(255, 254, 250, 0.86);
+  font-size: var(--nav-control-font-size);
+  line-height: 1;
   transition: border-color var(--duration) ease, box-shadow var(--duration) ease, background-color var(--duration) ease;
 }
 .site-navigation input[type=search]:focus-visible {
@@ -163,10 +186,13 @@
   box-shadow: 0 0 0 3px var(--color-cobalt-wash);
 }
 .site-navigation input[type=submit] {
-  min-height: 2.55rem;
-  padding: 0.55rem 0.85rem;
-  border-radius: var(--radius-small);
-  box-shadow: 0.14rem 0.14rem 0 var(--color-ink);
+  width: 100%;
+  height: var(--nav-control-height);
+  min-height: var(--nav-control-height);
+  padding: var(--nav-control-padding);
+  border-radius: var(--nav-control-radius);
+  font-size: var(--nav-control-font-size);
+  box-shadow: 0.18rem 0.18rem 0 var(--color-ink);
 }
 .site-navigation input[type=submit]:focus-visible {
   outline: 0;
@@ -249,10 +275,11 @@
   letter-spacing: 0.08em;
   line-height: 1.1;
   text-transform: uppercase;
+  box-shadow: 0.18rem 0.18rem 0 var(--color-coral);
 }
 
 .front-intro__title {
-  max-width: 10ch;
+  max-width: 11ch;
   margin-block-end: 0;
   text-shadow: 0.045em 0.045em 0 var(--color-cobalt-wash);
 }
@@ -364,31 +391,57 @@
   box-shadow: 0.5rem 0.5rem 0 var(--color-mint);
 }
 
+/* Teaser cards need generous internal rhythm because Drupal Views can place many together. */
 .node--view-mode-teaser {
-  padding: var(--space-4);
+  --teaser-padding: clamp(1.35rem, 2vw, 2rem);
+  padding: var(--teaser-padding);
   border: 1px solid var(--color-line-strong);
   background: var(--color-paper-elevated);
   box-shadow: 0.45rem 0.45rem 0 rgba(17, 19, 15, 0.09);
+  position: relative;
+  isolation: isolate;
   display: grid;
-  gap: var(--space-4);
+  gap: clamp(var(--space-3), 2vw, var(--space-5));
+  align-content: start;
   height: 100%;
   overflow: hidden;
-  transition: transform var(--duration) ease, box-shadow var(--duration) ease;
+  transition: transform var(--duration) ease, box-shadow var(--duration) ease, border-color var(--duration) ease;
 }
-.node--view-mode-teaser:hover {
+.node--view-mode-teaser::before {
+  position: absolute;
+  z-index: 1;
+  inset: 0 0 auto;
+  height: 0.42rem;
+  content: "";
+  background: linear-gradient(90deg, var(--color-cobalt), var(--color-acid), var(--color-coral));
+}
+.node--view-mode-teaser > * {
+  min-width: 0;
+}
+.node--view-mode-teaser:hover, .node--view-mode-teaser:focus-within {
+  border-color: var(--color-ink);
   transform: translate(-0.15rem, -0.15rem);
   box-shadow: 0.75rem 0.75rem 0 var(--color-acid);
+}
+.node--view-mode-teaser:focus-within {
+  outline: 3px solid var(--color-cobalt);
+  outline-offset: 0.35rem;
 }
 .node--view-mode-teaser .node__header {
   margin-block-end: 0;
 }
 .node--view-mode-teaser .node__title {
   max-width: 13ch;
+  margin-block-end: var(--space-2);
   font-size: clamp(1.85rem, 4.5vw, 3.4rem);
+  line-height: 1.02;
+  overflow-wrap: anywhere;
+}
+.node--view-mode-teaser .node__title a:focus-visible {
+  outline-offset: 0.16em;
 }
 .node--view-mode-teaser .node__content {
-  display: grid;
-  gap: var(--space-3);
+  display: contents;
   font-size: 1rem;
 }
 .node--view-mode-teaser .node__content > * {
@@ -396,17 +449,22 @@
 }
 .node--view-mode-teaser .field--type-image {
   order: -1;
-  margin: calc(var(--space-4) * -1) calc(var(--space-4) * -1) 0;
+  margin: calc(var(--teaser-padding) * -1) calc(var(--teaser-padding) * -1) 0;
 }
 .node--view-mode-teaser .field--type-image img {
   width: 100%;
-  max-height: 17rem;
+  height: clamp(11rem, 26vw, 17rem);
   object-fit: cover;
   border: 0;
   box-shadow: none;
+  transition: transform 420ms ease;
+}
+.node--view-mode-teaser:hover .field--type-image img, .node--view-mode-teaser:focus-within .field--type-image img {
+  transform: scale(1.035);
 }
 .node--view-mode-teaser .field--name-body {
   overflow: hidden;
+  color: var(--color-ink-soft);
 }
 .node--view-mode-teaser .field--name-body .field__item {
   display: -webkit-box;
@@ -424,8 +482,22 @@
 .node--view-mode-teaser .field--type-entity-reference {
   margin-block-end: 0;
 }
+.node--view-mode-teaser .field--name-field-tags .field__label,
+.node--view-mode-teaser .field--type-entity-reference .field__label {
+  flex-basis: 100%;
+  margin-block-end: 0;
+}
+.node--view-mode-teaser .field--name-field-tags .field__item a,
+.node--view-mode-teaser .field--type-entity-reference .field__item a {
+  max-width: min(100%, 18rem);
+  overflow: hidden;
+  background: var(--color-acid-soft);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
 .node--view-mode-teaser .links.inline {
   align-self: end;
+  margin-block-start: auto;
 }
 
 .node--unpublished {
@@ -686,7 +758,14 @@ textarea {
     display: block;
   }
   .site-navigation .search-block-form {
-    width: clamp(14rem, 22vw, 18rem);
+    width: clamp(15rem, 24vw, 20rem);
+  }
+  .site-navigation .search-block-form form {
+    grid-template-columns: minmax(0, 1fr) auto;
+  }
+  .site-navigation #block-codex-test-theme-account-menu a,
+  .site-navigation input[type=submit] {
+    width: auto;
   }
   .node__header {
     display: grid;
