@@ -1,4 +1,5 @@
 @use "abstracts/variables" as *;
+@use "abstracts/mixins" as *;
 
 :root {
   @include custom-properties;
@@ -15,7 +16,7 @@ html {
   color: var(--color-ink);
   background: var(--color-paper);
   font-family: var(--font-body);
-  line-height: 1.6;
+  line-height: 1.7;
   text-size-adjust: 100%;
 }
 
@@ -24,39 +25,8 @@ body {
   margin: 0;
   color: var(--color-ink);
   background:
-    linear-gradient(90deg, rgb(17 19 15 / 5%) 1px, transparent 1px) 0 0 / 4.5rem 4.5rem,
-    linear-gradient(180deg, rgb(17 19 15 / 4%) 1px, transparent 1px) 0 0 / 4.5rem 4.5rem,
-    var(--color-paper);
-  font-size: clamp(1rem, 0.94rem + 0.18vw, 1.125rem);
-
-  &::before {
-    position: fixed;
-    z-index: 0;
-    inset: 0;
-    content: "";
-    pointer-events: none;
-    background:
-      repeating-linear-gradient(135deg, rgb(22 75 255 / 6%) 0 1px, transparent 1px 12px),
-      radial-gradient(circle at 12% 8%, rgb(213 255 47 / 28%) 0 0.4rem, transparent 0.45rem),
-      radial-gradient(circle at 86% 26%, rgb(255 90 54 / 16%) 0 0.32rem, transparent 0.38rem);
-    opacity: 0.72;
-  }
-
-  &::after {
-    position: fixed;
-    z-index: 0;
-    right: 0;
-    bottom: 0;
-    width: min(34rem, 58vw);
-    height: min(20rem, 36vh);
-    content: "";
-    pointer-events: none;
-    background:
-      radial-gradient(circle, rgb(17 19 15 / 16%) 0 1px, transparent 1.5px) 0 0 / 0.8rem 0.8rem,
-      linear-gradient(135deg, transparent 0 44%, rgb(255 90 54 / 16%) 44% 56%, transparent 56%);
-    opacity: 0.55;
-    mask-image: linear-gradient(135deg, transparent 0 18%, #000 48%);
-  }
+    linear-gradient(180deg, var(--color-white) 0, var(--color-paper-wash) 100%);
+  font-size: 1rem;
 }
 
 img,
@@ -71,16 +41,18 @@ img {
 }
 
 a {
-  color: var(--color-cobalt-deep);
+  color: var(--color-ink);
   text-decoration-thickness: 0.08em;
-  text-underline-offset: 0.18em;
+  text-decoration-color: var(--color-green);
+  text-underline-offset: 0.22em;
   transition:
     color var(--duration) ease,
     text-decoration-color var(--duration) ease,
     background-color var(--duration) ease;
 
   &:hover {
-    color: var(--color-coral);
+    color: var(--color-pink);
+    text-decoration-color: currentColor;
   }
 }
 
@@ -102,33 +74,34 @@ h6 {
   margin-block: 0 0.75em;
   font-family: var(--font-display);
   font-weight: 700;
-  line-height: 0.98;
+  line-height: 1.12;
   letter-spacing: 0;
 }
 
 h1 {
-  max-width: 11ch;
-  font-size: clamp(3rem, 14vw, 8.6rem);
+  max-width: 16ch;
+  font-size: 2.6rem;
   text-wrap: balance;
 }
 
 h2 {
-  font-size: clamp(2rem, 6vw, 4.7rem);
+  font-size: 2rem;
   text-wrap: balance;
 }
 
 h3 {
-  font-size: clamp(1.5rem, 3vw, 2.4rem);
+  font-size: 1.45rem;
 }
 
 blockquote {
   margin-inline: 0;
   padding: var(--space-4);
-  border-inline-start: 0.4rem solid var(--color-acid);
-  background: rgb(255 254 250 / 72%);
-  box-shadow: 0 1rem 2rem rgb(17 19 15 / 7%);
-  font-size: clamp(1.2rem, 2.5vw, 1.7rem);
-  line-height: 1.35;
+  border-inline-start: 0.35rem solid var(--color-green);
+  border-radius: 0 var(--radius-card) var(--radius-card) 0;
+  background: var(--color-surface);
+  box-shadow: 0 0.9rem 2rem var(--color-shadow);
+  font-size: 1.2rem;
+  line-height: 1.55;
 }
 
 hr {
@@ -141,7 +114,7 @@ hr {
 table {
   width: 100%;
   border-collapse: collapse;
-  background: var(--color-paper-elevated);
+  background: var(--color-surface);
 }
 
 th,
@@ -156,7 +129,7 @@ th {
   background: var(--color-ink);
   color: var(--color-paper);
   font-family: var(--font-ui);
-  letter-spacing: 0.08em;
+  letter-spacing: 0;
   text-transform: uppercase;
 }
 
@@ -177,7 +150,7 @@ input[type="reset"] {
 
 /* Global keyboard focus stays visible; tighter component focus is handled locally. */
 :focus-visible {
-  outline: 3px solid var(--color-cobalt);
+  outline: 3px solid var(--color-green);
   outline-offset: 3px;
 }
 
@@ -200,17 +173,44 @@ input[type="reset"] {
   width: auto;
   height: auto;
   padding: 0.75rem 1rem;
-  border: 2px solid var(--color-ink);
+  border: 1px solid var(--color-ink);
   border-radius: var(--radius-small);
-  background: var(--color-acid);
+  background: var(--color-green);
   color: var(--color-ink);
   font-family: var(--font-ui);
   font-weight: 700;
   text-decoration: none;
-  text-transform: uppercase;
 }
 
 ::selection {
-  background: var(--color-acid);
-  color: var(--color-ink);
+  background: var(--color-pink);
+  color: var(--color-white);
+}
+
+@include media(tablet) {
+  body {
+    font-size: 1.0625rem;
+  }
+
+  h1 {
+    font-size: 3.35rem;
+  }
+
+  h2 {
+    font-size: 2.35rem;
+  }
+
+  h3 {
+    font-size: 1.6rem;
+  }
+}
+
+@include media(desktop) {
+  h1 {
+    font-size: 4rem;
+  }
+
+  h2 {
+    font-size: 2.75rem;
+  }
 }

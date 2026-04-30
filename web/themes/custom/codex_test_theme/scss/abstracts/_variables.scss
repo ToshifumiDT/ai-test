@@ -1,27 +1,28 @@
 @use "sass:map";
 
 $colors: (
-  ink: #11130f,
-  ink-soft: #34382e,
-  paper: #fbfbf4,
-  paper-wash: #f0f2df,
-  paper-elevated: #fffefa,
-  line: #d8ded0,
-  line-strong: #161911,
-  cobalt: #164bff,
-  cobalt-deep: #062ca8,
-  cobalt-wash: #dfe7ff,
-  acid: #d5ff2f,
-  acid-soft: #edf7b7,
-  coral: #ff5a36,
-  mint: #dff6ec,
-  white: #fff
+  black: #111,
+  white: #fff,
+  green: #7ddf64,
+  light-green: #c0df85,
+  sand: #deb986,
+  rose: #db6c79,
+  pink: #ed4d6e,
+  ink: #111,
+  ink-soft: #343434,
+  ink-muted: #666,
+  paper: #fff,
+  paper-wash: #fbf7ef,
+  surface: #fff,
+  surface-alt: #f7f3eb,
+  line: #e7ded2,
+  line-strong: #111
 );
 
 $fonts: (
-  display: ("Bodoni 72", Didot, "Baskerville", "Libre Baskerville", Georgia, serif),
-  body: ("Source Serif 4", Charter, "Iowan Old Style", "Sitka Text", Georgia, serif),
-  ui: ("IBM Plex Sans Condensed", "Aptos Narrow", "Franklin Gothic Medium", "Liberation Sans Narrow", sans-serif)
+  display: ("Hiragino Mincho ProN", "Yu Mincho", Georgia, serif),
+  body: ("Hiragino Kaku Gothic ProN", "Yu Gothic", Meiryo, system-ui, sans-serif),
+  ui: ("Hiragino Kaku Gothic ProN", "Yu Gothic", Meiryo, system-ui, sans-serif)
 );
 
 $breakpoints: (
@@ -31,10 +32,10 @@ $breakpoints: (
 );
 
 $spaces: (
-  1: 0.35rem,
-  2: 0.65rem,
-  3: 1rem,
-  4: 1.5rem,
+  1: 0.25rem,
+  2: 0.5rem,
+  3: 0.875rem,
+  4: 1.25rem,
   5: 2rem,
   6: 3rem,
   7: 4.5rem
@@ -61,7 +62,7 @@ $spaces: (
     --color-#{"" + $name}: #{$value};
   }
 
-  --color-shadow: rgb(17 19 15 / 18%);
+  --color-shadow: rgb(17 17 17 / 12%);
   --font-display: #{font(display)};
   --font-body: #{font(body)};
   --font-ui: #{font(ui)};
@@ -74,6 +75,7 @@ $spaces: (
   }
 
   --radius-small: 6px;
+  --radius-card: 8px;
   --radius-round: 999px;
   --duration: 180ms;
 }

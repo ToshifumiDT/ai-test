@@ -1,6 +1,6 @@
 # Codex Test Theme
 
-Codex Test Theme is a custom Drupal 10.3+/11 theme built for local frontend testing. The visual direction is modern editorial meets digital agency: sharp typography, hard ink rules, acid-green/cobalt/coral accents, responsive spacing, and progressive enhancement for motion and mobile navigation.
+Codex Test Theme is a custom Drupal 10.3+/11 theme built for local frontend testing. The visual direction is clean editorial: black-and-white type, a green/sand/rose/pink accent palette, calm spacing, responsive card grids, and progressive enhancement for motion and mobile navigation.
 
 ## Install
 

@@ -1,34 +1,36 @@
 :root {
-  --color-ink: #11130f;
-  --color-ink-soft: #34382e;
-  --color-paper: #fbfbf4;
-  --color-paper-wash: #f0f2df;
-  --color-paper-elevated: #fffefa;
-  --color-line: #d8ded0;
-  --color-line-strong: #161911;
-  --color-cobalt: #164bff;
-  --color-cobalt-deep: #062ca8;
-  --color-cobalt-wash: #dfe7ff;
-  --color-acid: #d5ff2f;
-  --color-acid-soft: #edf7b7;
-  --color-coral: #ff5a36;
-  --color-mint: #dff6ec;
+  --color-black: #111;
   --color-white: #fff;
-  --color-shadow: rgb(17 19 15 / 18%);
-  --font-display: Bodoni 72, Didot, Baskerville, Libre Baskerville, Georgia, serif;
-  --font-body: Source Serif 4, Charter, Iowan Old Style, Sitka Text, Georgia, serif;
-  --font-ui: IBM Plex Sans Condensed, Aptos Narrow, Franklin Gothic Medium, Liberation Sans Narrow, sans-serif;
+  --color-green: #7ddf64;
+  --color-light-green: #c0df85;
+  --color-sand: #deb986;
+  --color-rose: #db6c79;
+  --color-pink: #ed4d6e;
+  --color-ink: #111;
+  --color-ink-soft: #343434;
+  --color-ink-muted: #666;
+  --color-paper: #fff;
+  --color-paper-wash: #fbf7ef;
+  --color-surface: #fff;
+  --color-surface-alt: #f7f3eb;
+  --color-line: #e7ded2;
+  --color-line-strong: #111;
+  --color-shadow: rgb(17 17 17 / 12%);
+  --font-display: Hiragino Mincho ProN, Yu Mincho, Georgia, serif;
+  --font-body: Hiragino Kaku Gothic ProN, Yu Gothic, Meiryo, system-ui, sans-serif;
+  --font-ui: Hiragino Kaku Gothic ProN, Yu Gothic, Meiryo, system-ui, sans-serif;
   --container: 1180px;
   --content: 760px;
   --gutter: clamp(1rem, 3vw, 2.5rem);
-  --space-1: 0.35rem;
-  --space-2: 0.65rem;
-  --space-3: 1rem;
-  --space-4: 1.5rem;
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.875rem;
+  --space-4: 1.25rem;
   --space-5: 2rem;
   --space-6: 3rem;
   --space-7: 4.5rem;
   --radius-small: 6px;
+  --radius-card: 8px;
   --radius-round: 999px;
   --duration: 180ms;
 }
@@ -44,7 +46,7 @@ html {
   color: var(--color-ink);
   background: var(--color-paper);
   font-family: var(--font-body);
-  line-height: 1.6;
+  line-height: 1.7;
   text-size-adjust: 100%;
 }
 
@@ -52,30 +54,8 @@ body {
   min-height: 100vh;
   margin: 0;
   color: var(--color-ink);
-  background: linear-gradient(90deg, rgba(17, 19, 15, 0.05) 1px, transparent 1px) 0 0/4.5rem 4.5rem, linear-gradient(180deg, rgba(17, 19, 15, 0.04) 1px, transparent 1px) 0 0/4.5rem 4.5rem, var(--color-paper);
-  font-size: clamp(1rem, 0.94rem + 0.18vw, 1.125rem);
-}
-body::before {
-  position: fixed;
-  z-index: 0;
-  inset: 0;
-  content: "";
-  pointer-events: none;
-  background: repeating-linear-gradient(135deg, rgba(22, 75, 255, 0.06) 0 1px, transparent 1px 12px), radial-gradient(circle at 12% 8%, rgba(213, 255, 47, 0.28) 0 0.4rem, transparent 0.45rem), radial-gradient(circle at 86% 26%, rgba(255, 90, 54, 0.16) 0 0.32rem, transparent 0.38rem);
-  opacity: 0.72;
-}
-body::after {
-  position: fixed;
-  z-index: 0;
-  right: 0;
-  bottom: 0;
-  width: min(34rem, 58vw);
-  height: min(20rem, 36vh);
-  content: "";
-  pointer-events: none;
-  background: radial-gradient(circle, rgba(17, 19, 15, 0.16) 0 1px, transparent 1.5px) 0 0/0.8rem 0.8rem, linear-gradient(135deg, transparent 0 44%, rgba(255, 90, 54, 0.16) 44% 56%, transparent 56%);
-  opacity: 0.55;
-  mask-image: linear-gradient(135deg, transparent 0 18%, #000 48%);
+  background: linear-gradient(180deg, var(--color-white) 0, var(--color-paper-wash) 100%);
+  font-size: 1rem;
 }
 
 img,
@@ -90,13 +70,15 @@ img {
 }
 
 a {
-  color: var(--color-cobalt-deep);
+  color: var(--color-ink);
   text-decoration-thickness: 0.08em;
-  text-underline-offset: 0.18em;
+  text-decoration-color: var(--color-green);
+  text-underline-offset: 0.22em;
   transition: color var(--duration) ease, text-decoration-color var(--duration) ease, background-color var(--duration) ease;
 }
 a:hover {
-  color: var(--color-coral);
+  color: var(--color-pink);
+  text-decoration-color: currentColor;
 }
 
 p,
@@ -117,33 +99,34 @@ h6 {
   margin-block: 0 0.75em;
   font-family: var(--font-display);
   font-weight: 700;
-  line-height: 0.98;
+  line-height: 1.12;
   letter-spacing: 0;
 }
 
 h1 {
-  max-width: 11ch;
-  font-size: clamp(3rem, 14vw, 8.6rem);
+  max-width: 16ch;
+  font-size: 2.6rem;
   text-wrap: balance;
 }
 
 h2 {
-  font-size: clamp(2rem, 6vw, 4.7rem);
+  font-size: 2rem;
   text-wrap: balance;
 }
 
 h3 {
-  font-size: clamp(1.5rem, 3vw, 2.4rem);
+  font-size: 1.45rem;
 }
 
 blockquote {
   margin-inline: 0;
   padding: var(--space-4);
-  border-inline-start: 0.4rem solid var(--color-acid);
-  background: rgba(255, 254, 250, 0.72);
-  box-shadow: 0 1rem 2rem rgba(17, 19, 15, 0.07);
-  font-size: clamp(1.2rem, 2.5vw, 1.7rem);
-  line-height: 1.35;
+  border-inline-start: 0.35rem solid var(--color-green);
+  border-radius: 0 var(--radius-card) var(--radius-card) 0;
+  background: var(--color-surface);
+  box-shadow: 0 0.9rem 2rem var(--color-shadow);
+  font-size: 1.2rem;
+  line-height: 1.55;
 }
 
 hr {
@@ -156,7 +139,7 @@ hr {
 table {
   width: 100%;
   border-collapse: collapse;
-  background: var(--color-paper-elevated);
+  background: var(--color-surface);
 }
 
 th,
@@ -171,7 +154,7 @@ th {
   background: var(--color-ink);
   color: var(--color-paper);
   font-family: var(--font-ui);
-  letter-spacing: 0.08em;
+  letter-spacing: 0;
   text-transform: uppercase;
 }
 
@@ -192,7 +175,7 @@ input[type=reset] {
 
 /* Global keyboard focus stays visible; tighter component focus is handled locally. */
 :focus-visible {
-  outline: 3px solid var(--color-cobalt);
+  outline: 3px solid var(--color-green);
   outline-offset: 3px;
 }
 
@@ -215,17 +198,39 @@ input[type=reset] {
   width: auto;
   height: auto;
   padding: 0.75rem 1rem;
-  border: 2px solid var(--color-ink);
+  border: 1px solid var(--color-ink);
   border-radius: var(--radius-small);
-  background: var(--color-acid);
+  background: var(--color-green);
   color: var(--color-ink);
   font-family: var(--font-ui);
   font-weight: 700;
   text-decoration: none;
-  text-transform: uppercase;
 }
 
 ::selection {
-  background: var(--color-acid);
-  color: var(--color-ink);
+  background: var(--color-pink);
+  color: var(--color-white);
+}
+
+@media (min-width: 700px) {
+  body {
+    font-size: 1.0625rem;
+  }
+  h1 {
+    font-size: 3.35rem;
+  }
+  h2 {
+    font-size: 2.35rem;
+  }
+  h3 {
+    font-size: 1.6rem;
+  }
+}
+@media (min-width: 1024px) {
+  h1 {
+    font-size: 4rem;
+  }
+  h2 {
+    font-size: 2.75rem;
+  }
 }

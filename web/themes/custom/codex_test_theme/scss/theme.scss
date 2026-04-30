@@ -11,22 +11,22 @@
 
 .site-header::before {
   position: absolute;
-  inset: auto 0 -2px;
-  height: 2px;
+  inset: auto 0 -1px;
+  height: 3px;
   content: "";
-  background: linear-gradient(90deg, var(--color-cobalt), var(--color-acid), var(--color-coral));
+  background: linear-gradient(90deg, var(--color-green), var(--color-sand), var(--color-rose), var(--color-pink));
   transform-origin: left center;
-  animation: codex-header-rule 900ms ease-out both;
+  animation: codex-header-rule 720ms ease-out both;
 }
 
 .main-content::before {
   display: block;
-  width: min(18rem, 42vw);
-  height: 0.7rem;
+  width: min(10rem, 40vw);
+  height: 0.25rem;
   margin: 0 var(--gutter) var(--space-5) auto;
+  border-radius: var(--radius-round);
   content: "";
-  background:
-    linear-gradient(90deg, var(--color-cobalt) 0 30%, transparent 30% 38%, var(--color-acid) 38% 74%, transparent 74% 82%, var(--color-coral) 82%);
+  background: var(--color-green);
 }
 
 .page-title-region .block-page-title-block {
@@ -41,16 +41,11 @@
 
 .block-page-title-block .block__content {
   position: relative;
-  padding-inline-start: clamp(0rem, 4vw, 2.25rem);
+  padding-inline-start: var(--space-4);
+  border-inline-start: 0.35rem solid var(--color-green);
 
   h1 {
-    position: relative;
     margin-block-end: var(--space-4);
-    text-shadow: 0.045em 0.045em 0 var(--color-cobalt-wash);
-
-    &::first-letter {
-      color: var(--color-cobalt-deep);
-    }
   }
 
   &::after {
@@ -62,7 +57,7 @@
 
 .path-frontpage {
   .main-content {
-    padding-block-start: clamp(2rem, 7vw, 5rem);
+    padding-block-start: var(--space-5);
   }
 
   .page-title-region:has(h1:empty) {
@@ -70,61 +65,24 @@
   }
 
   .block-page-title-block h1 {
-    max-width: 9.5ch;
+    max-width: 14ch;
   }
 
   .layout-content__main > .block-system-main-block {
-    @include proof-surface(clamp(1.5rem, 5vw, 3.5rem));
+    @include proof-surface(clamp(1.25rem, 4vw, 2.5rem));
 
     width: min(100%, 980px);
-    background:
-      linear-gradient(90deg, var(--color-paper-elevated) 0 62%, rgb(223 246 236 / 70%) 62%),
-      var(--color-paper-elevated);
-    overflow: hidden;
-
-    &::before {
-      position: absolute;
-      top: var(--space-4);
-      right: var(--space-4);
-      display: block;
-      width: clamp(4rem, 12vw, 7rem);
-      height: clamp(4rem, 12vw, 7rem);
-      border: 2px solid var(--color-line-strong);
-      content: "";
-      background:
-        linear-gradient(45deg, transparent 44%, var(--color-ink) 44% 56%, transparent 56%),
-        linear-gradient(-45deg, transparent 44%, var(--color-ink) 44% 56%, transparent 56%),
-        var(--color-acid);
-      box-shadow: 0.5rem 0.5rem 0 var(--color-cobalt);
-      transform: rotate(3deg);
-    }
-
-    &::after {
-      position: absolute;
-      right: -4rem;
-      bottom: -2rem;
-      width: clamp(12rem, 34vw, 24rem);
-      height: clamp(4rem, 12vw, 8rem);
-      content: "";
-      background: repeating-linear-gradient(
-        90deg,
-        rgb(255 90 54 / 74%) 0 0.65rem,
-        transparent 0.65rem 1.2rem
-      );
-      transform: rotate(-9deg);
-    }
 
     .block__content {
       position: relative;
       z-index: 1;
       max-width: 62ch;
-      font-size: clamp(1.1rem, 2vw, 1.35rem);
-      line-height: 1.55;
+      font-size: 1.08rem;
+      line-height: 1.7;
     }
 
     a:not(.feed-icon) {
-      font-weight: 800;
-      color: var(--color-cobalt-deep);
+      font-weight: 700;
     }
 
     .feed-icon {
@@ -133,7 +91,7 @@
       gap: 0.5rem;
       margin-block-start: var(--space-4);
       color: var(--color-ink);
-      @include ui-label(0.82rem);
+      @include ui-label(0.84rem);
       text-decoration: none;
 
       &::before {
@@ -141,15 +99,14 @@
         aspect-ratio: 1;
         border-radius: 50%;
         content: "";
-        background: var(--color-coral);
-        box-shadow: 0.48rem 0 0 var(--color-acid), 0.96rem 0 0 var(--color-cobalt);
+        background: var(--color-pink);
       }
     }
   }
 
   .layout-content__main > .block-system-main-block:has(.views-row) {
-    --frontpage-row-gap: clamp(2.75rem, 6vw, 5rem);
-    --frontpage-column-gap: clamp(1.5rem, 3vw, 2.75rem);
+    --frontpage-row-gap: clamp(1.5rem, 4vw, 2.5rem);
+    --frontpage-column-gap: clamp(1.25rem, 3vw, 2rem);
 
     width: 100%;
     padding: 0;
@@ -158,11 +115,6 @@
     box-shadow: none;
     overflow: visible;
 
-    &::before,
-    &::after {
-      display: none;
-    }
-
     .block__content {
       max-width: none;
       font-size: 1rem;
@@ -170,8 +122,8 @@
     }
 
     /*
-     * Front page content is a Drupal View of node teasers. Keep the Views markup
-     * untouched and create scan-friendly spacing from the wrapper classes.
+     * Front page content is a Drupal View of node teasers. The grid is applied
+     * to wrapper classes so the View configuration and template output stay reusable.
      */
     .views-element-container > div,
     .views-element-container > div > .view-content {
@@ -193,29 +145,20 @@
     }
 
     .views-row:first-of-type .node--view-mode-teaser {
-      --teaser-padding: clamp(1.75rem, 4vw, 3.25rem);
+      --teaser-padding: clamp(1.5rem, 4vw, 2.5rem);
 
-      position: relative;
-      min-height: clamp(20rem, 34vw, 30rem);
-      padding: var(--teaser-padding);
+      min-height: 20rem;
       background:
-        linear-gradient(115deg, rgb(255 254 250 / 94%) 0 54%, rgb(213 255 47 / 70%) 54%),
-        var(--color-paper-elevated);
-      box-shadow:
-        0.85rem 0.85rem 0 var(--color-cobalt-wash),
-        1.35rem 1.35rem 0 rgb(17 19 15 / 10%);
-
-      &:has(.field--type-image) {
-        min-height: clamp(28rem, 46vw, 38rem);
-      }
+        linear-gradient(135deg, rgb(192 223 133 / 28%), transparent 42%),
+        var(--color-white);
 
       .node__title {
-        max-width: 12ch;
-        font-size: clamp(2.8rem, 9vw, 7rem);
+        max-width: 17ch;
+        font-size: 2.25rem;
       }
 
       .field--name-body {
-        max-width: 52ch;
+        max-width: 56ch;
 
         .field__item {
           -webkit-line-clamp: 5;
@@ -235,11 +178,16 @@
       .views-element-container > div,
       .views-element-container > div > .view-content {
         grid-template-columns: repeat(2, minmax(0, 1fr));
-        gap: var(--frontpage-row-gap) var(--frontpage-column-gap);
       }
 
       .views-row:first-of-type {
         grid-column: 1 / -1;
+      }
+
+      .views-row:first-of-type .node--view-mode-teaser {
+        .node__title {
+          font-size: 2.75rem;
+        }
       }
 
       .views-row:first-of-type .node--view-mode-teaser:has(.field--type-image) {
@@ -262,6 +210,7 @@
           img {
             height: 100%;
             max-height: none;
+            border-radius: var(--radius-card);
           }
         }
       }
@@ -280,6 +229,10 @@
       .views-row:first-of-type {
         grid-column: span 3;
       }
+
+      .views-row:first-of-type .node--view-mode-teaser .node__title {
+        font-size: 3.2rem;
+      }
     }
   }
 }
@@ -289,25 +242,27 @@
 
   &::before {
     display: block;
+    width: 3rem;
+    height: 0.25rem;
     margin-block-end: var(--space-3);
-    color: var(--color-coral);
-    content: "////";
-    font-family: var(--font-ui);
-    font-size: 1.2rem;
-    font-weight: 900;
-    letter-spacing: 0.14em;
+    border-radius: var(--radius-round);
+    content: "";
+    background: var(--color-rose);
   }
 }
 
 .site-footer {
   .block__title {
-    border-color: var(--color-coral);
-    color: var(--color-paper);
+    color: var(--color-white);
+
+    &::before {
+      background: var(--color-pink);
+    }
   }
 
   .site-mark__glyph {
-    border-color: var(--color-paper);
-    box-shadow: 0.25rem 0.25rem 0 var(--color-coral);
+    border-color: var(--color-white);
+    background: var(--color-green);
   }
 }
 
